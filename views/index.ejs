@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CleverTalk</title>
+  <link rel="stylesheet" href="/main.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <aside class="sidebar">
+
+
+    <div class="brand">
+      <span class="brand-text">CleverTalk</span>
+      <span class="brand-dot"></span>
+      <a href="/settings" class="settings-btn" aria-label="Settings">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Profile avatar (click to open panel) -->
+    <div class="profile-wrap">
+      <button class="avatar-btn" id="avatarBtn" aria-label="Open profile panel">
+        <img src="<%= user.profilePic || '/default-2820-pp.jpeg' %>" alt="<%= user.username %>" class="avatar-img" />
+        <span class="avatar-ring"></span>
+        <span class="online-dot"></span>
+      </button>
+
+      <!-- Dropdown panel -->
+      <div class="profile-panel" id="profilePanel">
+        <div class="pp-header">
+          <img src="<%= user.profilePic || '/default-2820-pp.jpeg' %>" alt="<%= user.username %>" class="pp-avatar" />
+          <div class="pp-info">
+            <p class="pp-username">@<%= user.username %></p>
+            <p class="pp-status">Online</p>
+          </div>
+        </div>
+
+        <div class="pp-stats">
+          <!-- Fill in your data here -->
+          <div class="stat-item">
+            <span class="stat-value">—</span>
+            <span class="stat-label">Messages</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">—</span>
+            <span class="stat-label">Contacts</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">—</span>
+            <span class="stat-label">Groups</span>
+          </div>
+        </div>
+
+        <div class="pp-actions">
+          <a href="/logout" class="pp-btn pp-logout">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            Logout
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search -->
+    <div class="search-wrap">
+      <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" class="search-input" id="searchInput" placeholder="Search contacts…" />
+    </div>
+
+    <!-- Contacts list -->
+    <nav class="contacts-list" id="contactsList">
+      <p class="contacts-label" style="display:none;">Contacts</p>
+
+      <%
+        const dummyContacts = [
+          { id: 1, name: "Alex Mercer",    status: "online",  lastMsg: "Hey, you there?" },
+          { id: 2, name: "Zara Patel",     status: "online",  lastMsg: "Call me later." },
+          { id: 3, name: "Dev Rathore",    status: "away",    lastMsg: "Sending you the file." },
+          { id: 4, name: "Niko Volkov",    status: "offline", lastMsg: "Catch you tomorrow!" },
+          { id: 5, name: "Mia Tanaka",     status: "online",  lastMsg: "Did you see that?" },
+          { id: 6, name: "Remi Okafor",    status: "away",    lastMsg: "Almost done." },
+          { id: 7, name: "Sam Whitfield",  status: "offline", lastMsg: "Talk soon." },
+          { id: 8, name: "Leila Hassan",   status: "online",  lastMsg: "On my way!" }
+        ];
+      %>
+
+      <% dummyContacts.forEach(function(contact) { %>
+        <button class="contact-item" data-id="<%= contact.id %>" data-name="<%= contact.name %>" onclick="openChat('<%= contact.id %>', '<%= contact.name %>', '<%= contact.status %>')">
+          <div class="contact-avatar">
+            <span class="contact-initials"><%= contact.name.split(' ').map(n => n[0]).join('') %></span>
+            <span class="contact-status-dot <%= contact.status %>"></span>
+          </div>
+          <div class="contact-info">
+            <p class="contact-name"><%= contact.name %></p>
+            <p class="contact-last"><%= contact.lastMsg %></p>
+          </div>
+        </button>
+      <% }); %>
+    </nav>
+
+  </aside>
+
+  <!-- ── Chat area ── -->
+  <main class="chat-area" id="chatArea">
+    <div class="chat-empty" id="chatEmpty">
+      <div class="empty-icon">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <p class="empty-title">No chat selected</p>
+      <p class="empty-sub">Pick a contact to start talking</p>
+    </div>
+
+    <div class="chat-window" id="chatWindow" style="display:none;">
+      <div class="chat-header" id="chatHeader">
+        <div class="chat-header-avatar" id="chatHeaderAvatar"></div>
+        <div>
+          <p class="chat-header-name" id="chatHeaderName">—</p>
+          <p class="chat-header-status" id="chatHeaderStatus">—</p>
+        </div>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <!-- messages will populate here -->
+      </div>
+      <div class="chat-input-bar">
+        <input type="text" class="chat-input" placeholder="Type a message…" />
+        <button class="send-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // ── Profile panel toggle ──
+    const avatarBtn = document.getElementById('avatarBtn');
+    const profilePanel = document.getElementById('profilePanel');
+
+    avatarBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      profilePanel.classList.toggle('open');
+    });
+
+    document.addEventListener('click', () => {
+      profilePanel.classList.remove('open');
+    });
+
+    profilePanel.addEventListener('click', e => e.stopPropagation());
+
+    // ── Contact search filter ──
+    document.getElementById('searchInput').addEventListener('input', function () {
+      const q = this.value.toLowerCase();
+      document.querySelectorAll('.contact-item').forEach(item => {
+        const name = item.dataset.name.toLowerCase();
+        item.style.display = name.includes(q) ? '' : 'none';
+      });
+    });
+
+    // ── Open chat ──
+    function openChat(id, name, status) {
+      document.querySelectorAll('.contact-item').forEach(c => c.classList.remove('active'));
+      document.querySelector(`.contact-item[data-id="${id}"]`).classList.add('active');
+
+      document.getElementById('chatEmpty').style.display = 'none';
+      document.getElementById('chatWindow').style.display = 'flex';
+
+      const initials = name.split(' ').map(n => n[0]).join('');
+      document.getElementById('chatHeaderAvatar').textContent = initials;
+      document.getElementById('chatHeaderName').textContent = name;
+      document.getElementById('chatHeaderStatus').textContent = status.charAt(0).toUpperCase() + status.slice(1);
+      document.getElementById('chatHeaderStatus').className = 'chat-header-status ' + status;
+
+      document.getElementById('chatMessages').innerHTML =
+        `<div class="chat-placeholder">Chat with <strong>${name}</strong> will appear here.</div>`;
+    }
+  </script>
+
+</body>
+</html>

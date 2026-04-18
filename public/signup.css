@@ -1,0 +1,341 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+#head {
+
+    font-size: 2.5rem;
+    color: #38bdf8;
+}
+body {
+    background-color: #0f172a; 
+    color: #f8fafc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+#form {
+    background-color: #1e293b; 
+    margin-top: 10px;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+
+input {
+    width: 100%;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    border: 1px solid #334155;
+    border-radius: 6px;
+    background-color: #0f172a;
+    color: #fff;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.1s, opacity 0.2s;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+#sendcode {
+    background-color: #334155;
+    color: #f8fafc;
+    margin-bottom: 10px;
+}
+
+#verbtn {
+    background-color: #0ea5e9;
+    color: white;
+}
+
+#signupbtn {
+    background-color: #10b981; 
+    color: white;
+    font-size: 1.1rem;
+    margin-top: 10px;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+#message {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: red;
+}
+#warn{
+    display: none;
+    position: fixed;
+    top: 20px;         
+    left: 50%;          
+    transform: translateX(-50%); 
+    min-width: 300px; 
+    padding: 15px 25px; 
+    background-color: #f34d30;
+    color: white;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 8px;  
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 9999; 
+
+}
+
+
+@media (max-width: 768px) {
+    #form {
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+    
+    #form {
+        padding: 1.5rem;
+        border-radius: 8px;
+    }
+
+    #head {
+        font-size: 1.25rem;
+    }
+
+    input, button {
+        padding: 10px;
+    }
+}
+
+ .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.75rem 1.5rem;
+    margin-bottom: 1rem;
+    width: 360px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    position: relative;
+    animation: fadeUp 0.6s cubic-bezier(0.22,1,0.36,1) both;
+  }
+ 
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+ 
+  .card-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    color: var(--text);
+    letter-spacing: 0.01em;
+  }
+ 
+  .card-sub {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+   /* Avatar ring */
+  .avatar-wrap {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    cursor: pointer;
+  }
+ 
+  .avatar-ring {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: var(--surface2);
+    border: 1.5px dashed rgba(200,169,110,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s;
+    position: relative;
+  }
+ 
+  .avatar-wrap:hover .avatar-ring {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 6px var(--accent-dim);
+    transform: scale(1.03);
+  }
+
+ 
+  /* Spinning arc on hover */
+  .avatar-arc {
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 1.5px solid transparent;
+    border-top-color: var(--accent);
+    opacity: 0;
+    transition: opacity 0.2s;
+    animation: spin 1.4s linear infinite;
+    pointer-events: none;
+  }
+ 
+  .avatar-wrap:hover .avatar-arc {
+    opacity: 1;
+  }
+ 
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+ 
+  .avatar-img {
+    display: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    position: absolute;
+    inset: 0;
+    transition: opacity 0.3s;
+  }
+ 
+  .avatar-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    transition: color 0.2s;
+  }
+ 
+  .avatar-wrap:hover .avatar-placeholder {
+    color: var(--accent);
+  }
+ 
+  .avatar-placeholder svg {
+    width: 32px;
+    height: 32px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.3;
+    stroke-linecap: round;
+  }
+ 
+  .avatar-placeholder span {
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+ 
+  .avatar-overlay {
+    display: none;
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.55);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4px;
+  }
+ 
+  .avatar-overlay svg {
+    width: 22px;
+    height: 22px;
+    stroke: var(--accent);
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+  }
+ 
+  .avatar-overlay span {
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+ 
+  .avatar-wrap:hover .avatar-overlay.visible {
+    display: flex;
+  }
+ 
+  .filename {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 4px 14px;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: none;
+    transition: opacity 0.3s;
+  }
+ 
+  .filename.show { opacity: 1; }
+ 
+ 
+  input[type="file"] { display: none; }
+ 
+  /* Success tick */
+  .tick {
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    width: 26px;
+    height: 26px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity 0.3s, transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  }
+ 
+  .tick.show { opacity: 1; transform: scale(1); }
+ 
+  .tick svg {
+    width: 13px;
+    height: 13px;
+    stroke: #0e0e10;
+    fill: none;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }

@@ -1,0 +1,166 @@
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.bg-image {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.bgfull {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 20, 0.55);
+  z-index: 1;
+}
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 32px;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.topbar h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+.helpbtn {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 7px 20px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.helpbtn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+
+.center {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  background: rgba(10,10,20,.95);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 20px;
+  padding: 48px 56px;
+  min-width: 320px;
+  text-align: center;
+}
+
+.tagline {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.75);
+  letter-spacing: 0.3px;
+}
+
+
+.btngroup {
+  display: flex;
+  gap: 16px;
+}
+
+#login, #signup {
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 11px 36px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.15s, opacity 0.2s, background 0.2s;
+  letter-spacing: 0.2px;
+}
+
+#login:active, #signup:active {
+  transform: scale(0.97);
+}
+
+
+.btnprimary {
+  background: #ffffff;
+  color: #111111;
+}
+
+.btnprimary:hover {
+  background: #e8e8e8;
+}
+
+
+.btnsecondary {
+  background: transparent;
+  color: #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+}
+
+.btnsecondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+@media (max-width: 480px) {
+  .topbar {
+    padding: 14px 20px;
+  }
+
+  .topbar h1 {
+    font-size: 1.3rem;
+  }
+
+  .center {
+    padding: 36px 28px;
+    min-width: unset;
+    width: 88%;
+  }
+
+  .btngroup {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  #login, #signup {
+    width: 100%;
+    text-align: center;
+  }
+}
