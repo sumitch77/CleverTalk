@@ -116,6 +116,11 @@
 
     <div class="chat-window" id="chatWindow" style="display:none;">
       <div class="chat-header" id="chatHeader">
+        <button class="back-btn" id="backBtn" onclick="showSidebar()">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <polyline points="15 18 9 12 15 6"/>
+  </svg>
+</button>
         <div class="chat-header-avatar" id="chatHeaderAvatar"></div>
         <div>
           <p class="chat-header-name" id="chatHeaderName">—</p>
@@ -159,10 +164,29 @@
       });
     });
 
+    function showSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  sidebar.classList.remove('hidden');
+  sidebar.style.zIndex = 10;
+  document.querySelector('.chat-area').style.zIndex = 5;
+}
+
     // ── Open chat ──
     function openChat(id, name, status) {
       document.querySelectorAll('.contact-item').forEach(c => c.classList.remove('active'));
       document.querySelector(`.contact-item[data-id="${id}"]`).classList.add('active');
+        if (window.innerWidth <= 575) {
+    document.querySelector('.sidebar').classList.add('hidden');
+     const sidebar = document.querySelector('.sidebar');
+    const chatArea = document.querySelector('.chat-area');
+
+    sidebar.classList.add('hidden');
+    sidebar.style.zIndex = 5;
+
+    chatArea.style.zIndex = 10;
+    chatArea.style.display = 'flex';     
+    chatArea.style.flexDirection = 'column';
+  }
 
       document.getElementById('chatEmpty').style.display = 'none';
       document.getElementById('chatWindow').style.display = 'flex';

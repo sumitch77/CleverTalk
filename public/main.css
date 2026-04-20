@@ -1,10 +1,4 @@
-/* ════════════════════════════════════════
-   CleverTalk — Main Page
-   Theme: Neon green × deep blacks × blue shades
-   Font: Orbitron (brand) + Rajdhani (UI)
-   ════════════════════════════════════════ */
 
-/* ── Variables ── */
 :root {
   --neon:        #39ff14;
   --neon-dim:    #1aad0a;
@@ -32,7 +26,6 @@
   --topbar-h:  56px;
 }
 
-/* ── Reset ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; overflow: hidden; }
 
@@ -648,13 +641,46 @@ body {
 }
 
 .send-btn:active { transform: scale(0.96); }
+.back-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 4px;
+}
 
 /* ════════════════════════════════════════
    RESPONSIVE (narrow)
    ════════════════════════════════════════ */
-@media (max-width: 640px) {
+@media (max-width: 575px) {
   .sidebar { width: 100vw; min-width: unset; }
   .chat-area { display: none; }
-  .sidebar.chat-open { display: none; }
+   body {
+    position: relative;
+  }
+
+  .sidebar {
+    width: 100vw;
+    min-width: 100vw;
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    transition: transform 0.3s ease;
+  }
+ .back-btn { display: flex; }
+  .sidebar.hidden {
+    transform: translateX(-100%);
+  }
+
+  .chat-area {
+    width: 100vw;
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    display: flex;
+  }
+
   .chat-area.chat-open { display: flex; width: 100vw; }
+
 }
