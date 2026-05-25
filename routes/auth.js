@@ -22,14 +22,23 @@ const longa = longTerm(600,5);
 const long8 = longTerm(600,5);
 
 const userSchema = new mongoose.Schema({
-    name1: { type: String, required: true },
+    name1: { type: String, required: true , unique: true},
     phone: { type: Number, required: true },
-    email: { type: String, required: true },
+    email: { type: String, required: true , unique: true },
     password: { type: String, required: true },
     filesend : {type : String},
 });
-const Chatter = mongoose.model('chatuser', userSchema);
+const chatusers = mongoose.model('chatusers', userSchema);
 
+router2.get('/logout', (req, res) => {
+  req.session.destroy(err => {
+    if (err) {
+      return res.status(500).json({ success: false, message: 'An error occurred during logout', error: err.message });
+    }
+    res.clearCookie('connect.sid');
+    res.redirect('/');
+  });
+});
 
 router2.get('/login', (req, res) => {
   if(req.session.userName){
@@ -54,7 +63,7 @@ router2.post('/login', VShorta, async (req, res) => {
   }
     
     try {
-        const user = await Chatter.findOne({ email: email , password: password });
+        const user = await chatusers.findOne({ email: email , password: password });
          if (user) {
             req.session.userId = user._id.toString();
             req.session.userName = user.name1;
@@ -203,7 +212,7 @@ const handleupload =(req, res, next) => {
       }
       if(req.session.verified && req.session.verifiedEmail === email) {
         try {
-      const newUser = new Chatter({ name1, phone, email, password, filesend: filePath });
+      const newUser = new chatusers({ name1, phone, email, password, filesend: filePath });
                 await newUser.save();
                 req.session.verified = false;
                 req.session.photourl = filePath;
@@ -214,7 +223,11 @@ const handleupload =(req, res, next) => {
     
         } catch (err) {
           if(err.code === 11000) {
-            res.status(400).json({ success: false, message: 'Email already exists. Login with existing account', link: '/login', actionText: 'Login' });
+            let field = Object.keys(err.keyValue)[0];
+            if(field === 'name1') {
+              field = 'Username';
+            }
+            res.status(400).json({ success: false, message: `${field} already exists. Try with another ${field}`, link: '/login', actionText: 'Login' });
           }
             else {
             res.status(500).json({ success: false, message: 'An error occurred during signup', error: err.message }); 
@@ -304,9 +317,9 @@ router2.post('/resetpassword',VShort10,
     }else{
  try {
   
-   const user = await Chatter.findOne({ email: email });
+   const user = await chatusers.findOne({ email: email });
          if (user) {
-const updatedUser = await Chatter.findOneAndUpdate(
+const updatedUser = await chatusers.findOneAndUpdate(
             { email: email }, 
             { password: newPassword }, 
             { returnDocument: 'after'} 
@@ -329,4 +342,4 @@ const updatedUser = await Chatter.findOneAndUpdate(
     }
 });
     
-module.exports = { router2 };
+module.exports = { router2,chatusers};

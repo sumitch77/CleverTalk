@@ -12,22 +12,38 @@ const VShort1 = VShortTerm(5,1);
 const short = VShortTerm(60,2);
 const long = VShortTerm(600,5);
 dns.setServers(["1.1.1.1", "8.8.8.8"]);
+const {  chatusers } = require('./auth');
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
+    try{
+   
     if(req.session.userName){
-        res.render('index' , { user: { username: req.session.userName, profilePic: req.session.photourl } });
+        res.redirect('/chat');
     } else {
         res.render('auth');
     }
+}catch(err){
+    console.error('Error fetching users:', err);
+    res.status(500).send('Internal Server Error');
+}
 });
 
-router.get('/chat', (req, res) => {
+router.get('/chat', async (req, res) => {
+    try{
     if(req.session.userName){
-        res.render('index' , { user: { username: req.session.userName, profilePic: req.session.photourl } });
+         const users = await chatusers.find({});
+        res.render('index' , { user: { username: req.session.userName, profilePic: req.session.photourl }  , 
+            users : users,}
+        );
     } else {
         res.redirect('/');
     }
+}catch(err){
+    console.error('Error fetching users:', err);
+    res.status(500).send('Internal Server Error');
+}
 });
+
 
 
 

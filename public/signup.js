@@ -259,7 +259,7 @@ signupbtn.addEventListener('click', async (e) => {
             confirmpass.value = '';
             code.value = '';
             localStorage.removeItem('resendUnlock')
-            window.location.href = '/chat';
+            window.location.href = '/';
         }
 
     } catch (err) {

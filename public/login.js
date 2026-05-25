@@ -72,7 +72,7 @@ function startCountdown(unlockTime) {
     },4000);
     if (data.success) {
       setTimeout(() => {
-        window.location.href = '/chat';
+        window.location.href = '/';
       }, 1000);
     }
 
